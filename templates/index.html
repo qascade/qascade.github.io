@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="intro">
+  <p class="lede">{{ site.intro }}</p>
+</section>
+
+<section class="home-columns">
+  <div class="home-col">
+    <h3>Start here</h3>
+    {% if featured %}
+    <ul class="plain">
+      {% for p in featured %}<li><a href="{{ p.url }}">{{ p.title }}</a></li>{% endfor %}
+    </ul>
+    {% else %}
+    <p class="muted">Mark a post <code>featured: true</code> in its front matter and it shows up here.</p>
+    {% endif %}
+  </div>
+  <div class="home-col">
+    <h3>Latest</h3>
+    <ul class="plain">
+      {% for p in recent %}<li><a href="{{ p.url }}">{{ p.title }}</a> <span class="muted">{{ p.date_short }}</span></li>{% endfor %}
+    </ul>
+  </div>
+</section>
+
+{% if series_list %}
+<section class="series-index">
+  <h3>Series</h3>
+  <ul class="plain">
+    {% for s in series_list %}
+    <li><a href="{{ s.url }}">{{ s.name }}</a> <span class="muted">{{ s.count }} notes</span></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+<section class="all-posts">
+  <h3>All posts</h3>
+  {% for year, items in by_year %}
+  <h4 class="year">{{ year }}</h4>
+  <ul class="year-list">
+    {% for p in items %}
+    <li><a href="{{ p.url }}">{{ p.title }}</a> <span class="muted">{{ p.date_short }}</span></li>
+    {% endfor %}
+  </ul>
+  {% endfor %}
+</section>
+{% endblock %}

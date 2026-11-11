@@ -1,0 +1,21 @@
+{
+  "title": "Second Brain",
+  "tagline": "Notes on the Bhagavad Gita, the Mahabharata, and whatever else I'm studying.",
+  "author": "Shubh Karman Singh",
+  "base_url": "https://qascade.github.io",
+  "base_path": "",
+  "intro": "These are my study notes — mostly on the Bhagavad Gita and the Mahabharata, written as I work through them chapter by chapter. They are notes, not teaching: paraphrases in my own words, my own questions, and the places I'm still stuck. I keep them public so I'm forced to write them clearly.",
+  "nav": [
+    { "label": "Home", "url": "/" },
+    { "label": "Gita", "url": "/series/bhagavad-gita/" },
+    { "label": "Mahabharata", "url": "/series/mahabharata/" },
+    { "label": "Archive", "url": "/archive/" },
+    { "label": "About", "url": "/about/" }
+  ],
+  "social": [
+    { "label": "GitHub", "url": "https://github.com/qascade" },
+    { "label": "RSS", "url": "/feed.xml" }
+  ],
+  "home_recent_count": 6,
+  "accent": "#c0863f"
+}

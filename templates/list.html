@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}{{ heading }} - {{ site.title }}{% endblock %}
+{% block content %}
+<header class="page-header">
+  <h1 class="page-title">{{ heading }}</h1>
+  {% if subheading %}<p class="muted">{{ subheading }}</p>{% endif %}
+</header>
+
+{% if grouped %}
+  {% for year, items in grouped %}
+  <h4 class="year">{{ year }}</h4>
+  <ul class="year-list">
+    {% for p in items %}<li><a href="{{ p.url }}">{{ p.title }}</a> <span class="muted">{{ p.date_short }}</span></li>{% endfor %}
+  </ul>
+  {% endfor %}
+{% elif ordered %}
+  <ol class="series-list">
+    {% for p in posts %}
+    <li>
+      <a href="{{ p.url }}">{{ p.title }}</a>
+      {% if p.description %}<span class="series-blurb">{{ p.description }}</span>{% endif %}
+    </li>
+    {% endfor %}
+  </ol>
+{% else %}
+  {% for p in posts %}
+  <article class="post-summary">
+    <h2><a href="{{ p.url }}">{{ p.title }}</a></h2>
+    <p class="post-meta">{{ p.date_long }}</p>
+    <p>{{ p.excerpt }}</p>
+    <p><a class="more" href="{{ p.url }}">Read more</a></p>
+  </article>
+  {% endfor %}
+{% endif %}
+{% endblock %}

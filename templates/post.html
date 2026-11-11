@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }} - {{ site.title }}{% endblock %}
+{% block description %}{{ post.description or post.excerpt }}{% endblock %}
+{% block content %}
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ post.title }}</h1>
+    <p class="post-meta">{{ post.date_long }}{% if post.reading_time %} &middot; {{ post.reading_time }} min read{% endif %}</p>
+    {% if series_name %}
+    <p class="series-badge">
+      <a href="{{ series_url }}">{{ series_name }}</a>
+      {% if series_total > 1 %}<span class="muted">part {{ series_pos }} of {{ series_total }}</span>{% endif %}
+    </p>
+    {% endif %}
+  </header>
+
+  {% if post.toc %}
+  <nav class="toc"><h4>Contents</h4>{{ post.toc }}</nav>
+  {% endif %}
+
+  <div class="post-body">
+    {{ post.html }}
+  </div>
+
+  {% if post.tags %}
+  <p class="post-tags">
+    {% for t in post.tags %}<a href="{{ base }}/tags/{{ t|slug }}/">{{ t }}</a>{% endfor %}
+  </p>
+  {% endif %}
+</article>
+
+{% if series_prev or series_next %}
+<nav class="post-nav series-nav">
+  <div class="prev">{% if series_prev %}<span class="muted">Earlier in {{ series_name }}</span><a href="{{ series_prev.url }}">{{ series_prev.title }}</a>{% endif %}</div>
+  <div class="next">{% if series_next %}<span class="muted">Next in {{ series_name }}</span><a href="{{ series_next.url }}">{{ series_next.title }}</a>{% endif %}</div>
+</nav>
+{% else %}
+<nav class="post-nav">
+  <div class="prev">{% if prev %}<span class="muted">Previous</span><a href="{{ prev.url }}">{{ prev.title }}</a>{% endif %}</div>
+  <div class="next">{% if next %}<span class="muted">Next</span><a href="{{ next.url }}">{{ next.title }}</a>{% endif %}</div>
+</nav>
+{% endif %}
+{% endblock %}

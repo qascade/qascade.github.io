@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ site.title }}{% endblock %}</title>
+<meta name="description" content="{% block description %}{{ site.tagline }}{% endblock %}">
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ base }}/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="{{ base }}/css/style.css">
+<link rel="stylesheet" href="{{ base }}/css/code.css">
+{% if has_math %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+{% endif %}
+<script>
+  /* applied before paint so the chosen theme never flashes */
+  try {
+    document.documentElement.setAttribute(
+      "data-theme", localStorage.getItem("sp-theme") || "auto");
+  } catch (e) {}
+</script>
+</head>
+<body>
+<div class="site">
+
+  <header class="site-header">
+    <div class="theme-picker">
+      <button class="theme-toggle" type="button" aria-haspopup="true" aria-expanded="false"
+              aria-label="Change colour theme">
+        <span class="swatch" aria-hidden="true"></span><span class="label">Auto</span>
+      </button>
+      <ul class="theme-menu" role="menu" hidden>
+        <li><button type="button" role="menuitemradio" aria-checked="true"  data-theme="auto"><span class="dot dot-auto" aria-hidden="true"></span>Auto</button></li>
+        <li><button type="button" role="menuitemradio" aria-checked="false" data-theme="light"><span class="dot dot-light" aria-hidden="true"></span>Light</button></li>
+        <li><button type="button" role="menuitemradio" aria-checked="false" data-theme="dark"><span class="dot dot-dark" aria-hidden="true"></span>Dark</button></li>
+        <li><button type="button" role="menuitemradio" aria-checked="false" data-theme="sepia"><span class="dot dot-sepia" aria-hidden="true"></span>Sepia</button></li>
+        <li><button type="button" role="menuitemradio" aria-checked="false" data-theme="slate"><span class="dot dot-slate" aria-hidden="true"></span>Slate</button></li>
+        <li><button type="button" role="menuitemradio" aria-checked="false" data-theme="forest"><span class="dot dot-forest" aria-hidden="true"></span>Forest</button></li>
+      </ul>
+    </div>
+    <p class="site-title"><a href="{{ base }}/">{{ site.title }}</a></p>
+    <p class="site-tagline">{{ site.tagline }}</p>
+  </header>
+
+  <nav class="site-nav">
+    <ul>
+      {% for item in site.nav %}<li><a href="{{ item.url }}">{{ item.label }}</a></li>{% endfor %}
+    </ul>
+  </nav>
+
+  <div class="site-content{% if sidebar %} has-sidebar{% endif %}">
+    <main class="main">
+      {% block content %}{% endblock %}
+    </main>
+
+    {% if sidebar %}
+    <aside class="sidebar">
+      <section class="widget">
+        <h3 class="widget-title">About</h3>
+        <p>{{ site.intro }}</p>
+        <p><a href="{{ base }}/about/">More about me &rarr;</a></p>
+      </section>
+      {% if series_list %}
+      <section class="widget">
+        <h3 class="widget-title">Series</h3>
+        <ul class="plain">
+          {% for s in series_list %}<li><a href="{{ s.url }}">{{ s.name }}</a> <span class="muted">{{ s.count }}</span></li>{% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+      <section class="widget">
+        <h3 class="widget-title">Recent posts</h3>
+        <ul class="plain">
+          {% for p in recent %}<li><a href="{{ p.url }}">{{ p.title }}</a></li>{% endfor %}
+        </ul>
+      </section>
+      {% if all_tags %}
+      <section class="widget">
+        <h3 class="widget-title">Topics</h3>
+        <p class="tag-cloud">
+          {% for tag, n in all_tags %}<a href="{{ base }}/tags/{{ tag|slug }}/">{{ tag }} <span>{{ n }}</span></a>{% endfor %}
+        </p>
+      </section>
+      {% endif %}
+    </aside>
+    {% endif %}
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="social">
+        {% for s in site.social %}<a href="{{ s.url }}">{{ s.label }}</a>{% endfor %}
+      </p>
+      <p class="copyright">&copy; {{ now.year }} {{ site.author }}. Built with a handful of Python.</p>
+    </div>
+  </footer>
+
+</div>
+{% if has_math %}
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script defer src="{{ base }}/js/math.js"></script>
+{% endif %}
+<script src="{{ base }}/js/code.js" defer></script>
+<script src="{{ base }}/js/theme.js"></script>
+{% if livereload %}<script src="{{ base }}/js/livereload.js"></script>{% endif %}
+</body>
+</html>
